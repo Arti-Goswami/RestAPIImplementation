@@ -7,15 +7,16 @@ import com.api.base.AuthService;
 import com.api.models.requests.LoginRequest;
 import com.api.models.response.LoginResponse;
 
-import static io.restassured.RestAssured.*; // here we are doing static import so that we dont need to write RestAssured again and again as all the methods and variables are static from this class
-// so we dont need to write class name again and again and we can directly used the RestAssured methods and variable also by doing so we can increase the redability of the code
+import static io.restassured.RestAssured.*; 
+// here we are doing static import so that we don't need to write RestAssured again and again as all the methods and variables are static from this class
+// so we don't need to write class name again and again and we can directly used the RestAssured methods and variable also by doing so we can increase the redability of the code
 
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class LoginAPITest3 {
+public class LoginSuccessTest {
 
-	@Test(description = "Verify if ogin API is working....")
+	@Test(description = "Verify if Login API is working....")
 	public void loginTest() {
 
 		LoginRequest loginRequest = new LoginRequest("Arti", "Test1234");

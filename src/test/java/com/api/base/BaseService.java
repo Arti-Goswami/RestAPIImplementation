@@ -8,20 +8,62 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-public class BaseService { // Wrapper for Rest Assured!!
+/**
+ * BaseService - A wrapper around Rest Assured for handling API requests
+ */
+public class BaseService {
 
-	// Handle Base URI
-	// For creating the request
-	// for handling the response
-	private static final String BASE_URL="http://64.227.160.186:8080";
+	// Base URL for all API calls
+	private static final String BASE_URL = "http://64.227.160.186:8080";
+	
+	// Common RequestSpecification to reuse across requests
 	private RequestSpecification requestSpecification;
 
+	// Constructor initializes request specification with base URI
 	public BaseService() {
-		requestSpecification=given().baseUri(BASE_URL);
+		requestSpecification = given().baseUri(BASE_URL);
 	}
 
-	protected Response postRequest(Object payLoad,String endPoint) {
-		return requestSpecification.contentType(ContentType.JSON).body(payLoad).post(endPoint);
+	/**
+	 * POST request
+	 * @param payLoad - Request body as object (will be serialized to JSON)
+	 * @param endPoint - API endpoint to hit
+	 * @return Response - Response returned from server
+	 */
+	protected Response postRequest(Object payLoad, String endPoint) {
+		return requestSpecification
+				.contentType(ContentType.JSON) // Set content type to JSON
+				.body(payLoad) // Set request body
+				.post(endPoint); // Send POST request
 	}
 
+	/**
+	 * GET request
+	 * @param endpoint - API endpoint to hit
+	 * @return Response - Response returned from server
+	 */
+	protected Response getRequest(String endpoint) {
+		return requestSpecification.get(endpoint); // Send GET request
+	}
+
+	/**
+	 * Set Authorization token in header
+	 * @param token - Bearer token to set for authentication
+	 */
+	protected void setAuthToken(String token) {
+		requestSpecification.header("Authorization", "Bearer " + token);
+	}
+
+	/**
+	 * PUT request
+	 * @param payLoad - Request body as object (will be serialized to JSON)
+	 * @param endPoint - API endpoint to hit
+	 * @return Response - Response returned from server
+	 */
+	protected Response putRequest(Object payLoad, String endPoint) {
+		return requestSpecification
+				.contentType(ContentType.JSON) // Set content type to JSON
+				.body(payLoad) // Set request body
+				.put(endPoint); // Send PUT request
+	}
 }
